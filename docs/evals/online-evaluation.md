@@ -842,14 +842,14 @@ async def main():
 asyncio.run(main())
 ```
 
-After each `agent.run()` call, the capability:
+After each [`agent.run()`][pydantic_ai.Agent.run] call, the capability:
 
 1. Samples evaluators based on their `sample_rate` configuration
 2. Builds an [`EvaluatorContext`][pydantic_evals.evaluators.EvaluatorContext] from the run result (output, prompt, token usage, duration, span tree)
 3. Dispatches evaluators asynchronously in the background
 4. Returns the run result immediately without blocking
 
-The capability supports all the same features as the `@evaluate()` decorator: sampling, gating, per-evaluator sinks, concurrency control, and error handling. The `config` parameter is optional and defaults to the global [`DEFAULT_CONFIG`][pydantic_evals.online.DEFAULT_CONFIG].
+The capability supports all the same features as the [`@evaluate()`][pydantic_evals.online.evaluate] decorator: sampling, gating, per-evaluator sinks, concurrency control, and error handling. The `config` parameter is optional and defaults to the global [`DEFAULT_CONFIG`][pydantic_evals.online.DEFAULT_CONFIG].
 
 !!! note
     [`OnlineEvaluation`][pydantic_evals.online_capability.OnlineEvaluation] wraps [`agent.run()`][pydantic_ai.Agent.run] only. Streaming via [`agent.run_stream()`][pydantic_ai.Agent.run_stream] is not currently supported because the final result is not available until the stream completes.
