@@ -312,14 +312,12 @@ async def test_name_defaults_to_run_id():
         capabilities=[OnlineEvaluation(evaluators=[AlwaysTrue()], config=config)],
     )
 
-    await agent.run('hello')
+    result = await agent.run('hello')
     await wait_for_evaluations()
 
     assert len(collector.calls) == 1
     _, _, ctx = collector.calls[0]
-    # run_id is a UUID string, so it should be non-empty and not 'agent'
-    assert ctx.name is not None
-    assert len(ctx.name) > 0
+    assert ctx.name == result.run_id
 
 
 @pytest.mark.anyio
